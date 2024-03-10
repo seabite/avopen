@@ -28,6 +28,26 @@ body, html {
     overflow: hidden;
   }
   
+/* スタート画面とゲームオーバー画面のオーバーレイスタイル */
+.overlay-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none; /* デフォルトでは非表示にします */
+}
+
+/* スタートボタンのスタイル */
+#start-button {
+  padding: 10px 20px;
+  font-size: 1.5em;
+  cursor: pointer;
+  
   /* Score and timer board */
   #score-board, #timer-board {
     color: #fff;
