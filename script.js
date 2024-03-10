@@ -43,6 +43,47 @@ canvas.addEventListener("touchmove", function (event) {
   // ...
 });
 
+// スタート画面を表示する関数
+function showStartScreen() {
+  document.getElementById("start-screen").style.display = "flex";
+}
+
+// スタートボタンを押したときの処理
+document
+  .getElementById("start-button")
+  .addEventListener("click", startGameCountdown);
+
+// ゲーム開始前のカウントダウンを開始する関数
+function startGameCountdown() {
+  let countdown = 3; // 3秒からカウントダウン
+  document.getElementById("start-screen").innerHTML =
+    '<div id="countdown">' + countdown + "</div>";
+
+  // 1秒ごとにカウントダウンを更新するタイマー
+  const countdownTimer = setInterval(function () {
+    countdown--;
+    document.getElementById("countdown").textContent = countdown;
+
+    if (countdown <= 0) {
+      clearInterval(countdownTimer);
+      document.getElementById("start-screen").style.display = "none"; // スタート画面を非表示にする
+      startGame(); // ゲームを開始する
+    }
+  }, 1000);
+}
+
+// ゲームを開始する関数
+function startGame() {
+  gameRunning = true;
+  updateTimer(); // ゲームのタイマーを開始
+  gameLoop(); // ゲームループを開始
+}
+
+// ... (既存の gameLoop, updateTimer 関数) ...
+
+// 最初にスタート画面を表示
+showStartScreen();
+
 // アボカドを追加する関数を定義します。
 function addAvocado() {
   // 新しいアボカドを作成して、avocados配列に追加します。
