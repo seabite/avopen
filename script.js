@@ -1,52 +1,74 @@
+// ゲームのスコアと状態を保持する変数を定義します。
+let score = 0;
+let gameRunning = true;
+let avocados = []; // 落下するアボカドを管理するための配列です。
+
+// キャンバスのセットアップを行います。
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-let score = 0;
-let timeLeft = 60;
-let gameRunning = true;
+// 実際の要素の大きさにキャンバスの大きさを合わせます。
+canvas.width = 390;
+canvas.height = 844;
 
-// スコアとタイマーのDOMを取得
-const scoreDisplay = document.getElementById("score");
-const timerDisplay = document.getElementById("timer");
-
-// アボカドの画像を読み込む
-const avocadoImg = new Image();
-avocadoImg.src = "avocado.png"; // アボカド画像のパスを指定
-
-// ゲーム開始の初期化処理
-function init() {
-  // TODO: タイマーを設定
-  // TODO: アボカドを落とす処理
-  // TODO: イベントリスナーを追加
-}
-
-// スコアを更新する関数
-function updateScore() {
-  score += 1;
-  scoreDisplay.textContent = score;
-}
-
-// タイマーを更新する関数
-function updateTimer() {
-  // 毎秒タイマーをデクリメント
-  if (timeLeft > 0) {
-    setTimeout(() => {
-      timeLeft -= 1;
-      timerDisplay.textContent = timeLeft;
-      updateTimer();
-    }, 1000);
-  } else {
-    // ゲーム終了
-    gameRunning = false;
-    // TODO: ゲームオーバー処理
-  }
-}
-
-// ゲームのメインループ
+// ゲームのメインループの定義をします。
 function gameLoop() {
-  if (gameRunning) {
-    // TODO: ゲームのロジックを実行
-    requestAnimationFrame(gameLoop);
+  // ゲームが終了状態であれば、ループを止めます。
+  if (!gameRunning) return;
+
+  // キャンバスをクリアし、新しいフレームの描画を開始します。
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 落下するアボカドのロジックを実行します。
+  // アボカドの位置更新や、キャッチしたかどうかの判定など
+  // ...
+
+  // アボカドやその他の要素をキャンバスに描画します。
+  // ...
+
+  // 次のフレームを要求します。
+  requestAnimationFrame(gameLoop);
+}
+
+// ゲームループを開始します。
+gameLoop();
+
+// ユーザーの入力に応じてバスケットを制御するイベントハンドラを設定します。
+canvas.addEventListener("mousemove", function (event) {
+  // マウスの動きに応じてバスケットを動かします。
+  // ...
+});
+
+canvas.addEventListener("touchmove", function (event) {
+  // タッチ操作に応じてバスケットを動かします。
+  // ...
+});
+
+// アボカドを追加する関数を定義します。
+function addAvocado() {
+  // 新しいアボカドを作成して、avocados配列に追加します。
+  // ...
+}
+
+// スコアを更新し、表示する関数を定義します。
+function updateScore() {
+  score += 1; // スコアを1増やします。
+  document.getElementById("score").textContent = score; // スコアボードを更新します。
+}
+
+// ゲームタイマーを設定します。
+let gameTime = 60; // ゲーム時間を60秒に設定します。
+function updateTimer() {
+  // タイマーが0より大きい場合はデクリメントします。
+  if (gameTime > 0) {
+    gameTime--;
+    document.getElementById("timer").textContent = gameTime; // タイマーボードを更新します。
+    setTimeout(updateTimer, 1000); // 1秒後に再度updateTimerを実行します。
+  } else {
+    // タイマーが0になったら、ゲームを終了状態にします。
+    gameRunning = false;
+    // ゲームオーバーのロジックをここに実装します。
   }
 }
 
-init(); // ゲームの初期化
+// タイマーを開始します。
+updateTimer();
